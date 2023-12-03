@@ -1,0 +1,169 @@
+body {
+    background-color: rgb(250, 252, 255);
+    background-repeat: no-repeat;
+}
+
+.button_register,
+.button_login {
+    width: 70px;
+    height: 34px;
+    position: absolute;
+    border-radius: 6px;
+    border: none;
+    color: rgb(242, 246, 251);
+    font-weight: 800;
+    background-color: rgb(89, 238, 243);
+    transition: background-color 0.3s ease;
+}
+
+.button_login {
+    right: 120px;
+    top: 15px;
+}
+
+.button_register {
+    right: 40px;
+    top: 15px;
+}
+
+.guidance_table {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 20px;
+    margin-bottom: 40px;
+    height: 45px;
+    width: 1000px;
+    min-width: 500px;
+    border-radius: 6px;
+    background-color: white;
+    box-shadow: 0px 0px 30px rgb(0 0 0 / 8%);
+}
+
+.guidance {
+    position: absolute;
+    left: 30px;
+    top: 10px;
+    font-weight: 500;
+}
+
+.market,
+.market2,
+.market1 {
+    width: 70px;
+    height: 30px;
+    border: none;
+    color: rgb(242, 246, 251);
+    font-weight: 600;
+    margin-left: 10px;
+    background-color: rgb(89, 238, 243);
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+}
+
+.market {
+    margin-left: 125px;
+    margin-top: 8px;
+}
+
+.search_table {
+    position: relative;
+    left: 50%;
+    height: 100px;
+    transform: translateX(-50%);
+    width: 1000px;
+    min-width: 500px;
+}
+
+#id_search {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 40px;
+    border: none;
+    box-shadow: 0px 0px 30px rgb(0 0 0 / 8%);
+    border-radius: 24px;
+}
+
+.search_button {
+    width: 70px;
+    height: 34px;
+    position: absolute;
+    right: 116px;
+    top: 5px;
+    border-radius: 6px;
+    border: none;
+    color: rgb(242, 246, 251);
+    font-weight: 800;
+    background-color: rgb(89, 238, 243);
+    transition: background-color 0.3s ease;
+}
+
+.hot_stocks {
+
+    width: 800px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+ul li {
+    position: relative;
+    list-style-type: none;
+    height: 45px;
+    margin-top: 10px;
+    border-top: 1px solid rgb(196, 183, 183);
+}
+
+li span {
+    display: inline-block;
+    text-align: center;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.stock_symbol,
+.change_percentage,
+.change_amount,
+.latest_close_price,
+.company_name {
+    position: absolute;
+    line-height: 30px;
+    width: 100px;
+    height: 30px;
+    top: 4px;
+}
+
+.stock_symbol {
+    left: 6px;
+    color: rgb(242, 246, 251);
+    background-color: rgb(121, 255, 103);
+}
+
+.change_percentage {
+    right: 6px;
+    color: rgb(240, 83, 40);
+    background-color: rgb(255, 224, 222);
+}
+
+.change_amount {
+    right: 160px;
+    color: rgb(240, 83, 40);
+}
+
+.latest_close_price {
+    left: 250px;
+}
+
+.company_name {
+    left: 110px;
+}
+
+.change_amount .guidance_table button:hover,
+.search_button:hover,
+.button_login:hover,
+.button_register:hover {
+    background-color: rgb(0, 203, 214);
+}
