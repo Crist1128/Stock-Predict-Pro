@@ -15,7 +15,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
@@ -25,8 +24,8 @@ SECRET_KEY = "django-insecure-#7tb6kek7t!a$8sc$d^2)o62$f1glyt@=qj2#s13)njnxvia0o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+# 后端本机地址
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # Application definition
 
@@ -39,8 +38,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "users_app.apps.UsersAppConfig",
     "admin_app.apps.AdminAppConfig",
-    "stocks_app.apps.StocksAppConfig"
-    
+    "stocks_app.apps.StocksAppConfig",
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -51,6 +50,12 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
+]
+
+# 允许前端跨域访问
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8080",
 ]
 
 ROOT_URLCONF = "Stock_Predict_Pro.urls"
@@ -73,7 +78,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "Stock_Predict_Pro.wsgi.application"
 
-
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
@@ -89,13 +93,11 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'stock_predict_pro',  # 数据库名字
         'USER': 'root',
-        'PASSWORD': '20021219',
+        'PASSWORD': '123456',
         'HOST': '127.0.0.1',  # 那台机器安装了MySQL
         'PORT': 3306,
     }
 }
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -115,7 +117,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
@@ -126,7 +127,6 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/

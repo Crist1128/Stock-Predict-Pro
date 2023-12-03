@@ -15,7 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from users_app import views
+from stocks_app.views import HotStockList
+from stocks_app.views import StockNews
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path('index/', views.index_users),
+    path('api/hot_stocks/', HotStockList.as_view(), name='hot_stock_list'),
+    path('api/todays_news/', StockNews.as_view(), name='stock_new')
 ]
