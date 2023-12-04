@@ -15,7 +15,7 @@
 # )
 
 # # 读取xlsx文件
-# file_path = 'AStockSpotData.xlsx'
+# file_path = 'A股所有股票代码与名称.xlsx'
 # df = pd.read_excel(file_path)
 
 # # 遍历DataFrame并插入数据到数据库

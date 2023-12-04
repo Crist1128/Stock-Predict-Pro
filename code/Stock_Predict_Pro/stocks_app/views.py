@@ -7,6 +7,13 @@ from rest_framework.response import Response
 from .models import Stock, Index
 from .serializers import StockSerializer, IndexSerializer
 from django.db.models import Q
+from rest_framework import status
+
+'''
+首页url及其view函数编写
+
+'''
+
 
 class HotStocksView(APIView):
     def get(self, request):
@@ -78,3 +85,53 @@ class MarketsView(APIView):
         # 实现获取导航栏信息的逻辑
         # ...
         pass
+
+
+'''
+股票页url及view函数编写
+'''
+
+from django.utils import timezone
+
+class StockInfoAPIView(APIView):
+    def get(self, request, symbol):
+        try:
+            symbol=symbol[2:]
+            # 获取实时行情数据
+            stock_zh_a_spot_em_df = ak.stock_zh_a_spot_em()
+
+            # 查找特定股票信息
+            stock_info = stock_zh_a_spot_em_df[stock_zh_a_spot_em_df['代码'] == symbol]
+
+            # 检查是否有匹配的记录
+            if len(stock_info) == 0:
+                raise ValueError(f"股票代码 {symbol} 未找到对应记录")
+
+            # 获取请求时间
+            request_time = timezone.now()
+
+            # 转换数据格式
+            formatted_data = {
+                "stock_name": stock_info['名称'].iloc[0],
+                "symbol": stock_info['代码'].iloc[0],
+                "current_price": {
+                    "price": float(stock_info['最新价'].iloc[0]),
+                    "timestamp": request_time  # 使用请求时间
+                },
+                "previous_close": float(stock_info['昨收'].iloc[0]),
+                "price_range": {
+                    "low": float(stock_info['最低'].iloc[0]),
+                    "high": float(stock_info['最高'].iloc[0])
+                },
+                "year_to_date_return": float(stock_info['年初至今涨跌幅'].iloc[0]),
+                "market_cap": f"{float(stock_info['总市值'].iloc[0]) / 1e9:.2f}B",
+                "average_volume": f"{float(stock_info['成交量'].iloc[0]) / 1e6:.2f}M",
+                # 可继续添加其他字段
+            }
+
+            return Response(formatted_data, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+

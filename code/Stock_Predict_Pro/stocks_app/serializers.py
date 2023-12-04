@@ -12,3 +12,8 @@ class IndexSerializer(serializers.ModelSerializer):
     class Meta:
         model = Index
         fields = ['index_code', 'index_name', 'market']
+
+class StockSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Stock
+        fields = ['stock_symbol', 'company_name', 'market', 'company_profile']
