@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "users_app.apps.UsersAppConfig",
     "admin_app.apps.AdminAppConfig",
-    "stocks_app.apps.StocksAppConfig"
+    "stocks_app.apps.StocksAppConfig",
+    "rest_framework",
     
 ]
 
@@ -87,7 +88,7 @@ WSGI_APPLICATION = "Stock_Predict_Pro.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'stock_predict_pro',  # 数据库名字
+        'NAME': 'stock_predict_pro_database',  # 数据库名字
         'USER': 'root',
         'PASSWORD': '20021219',
         'HOST': '127.0.0.1',  # 那台机器安装了MySQL

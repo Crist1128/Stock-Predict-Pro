@@ -1,55 +1,67 @@
 # models.py in stocks_app
 
 from django.db import models
-from users_app.models import User  # 从users_app导入User模型
+from users_app.models import User  # 导入User模型
 
-class Stocks(models.Model):
+class Stock(models.Model):
     stock_symbol = models.CharField(max_length=10, primary_key=True)  # 股票代码，字符型，最大长度为10，主键
     company_name = models.CharField(max_length=255)  # 公司名称，字符型，最大长度为255
-    industry_classification = models.CharField(max_length=255)  # 行业分类，字符型，最大长度为255
     market = models.CharField(max_length=20)  # 市场，字符型，最大长度为20
-    company_profile = models.TextField()  # 公司简介，文本型
-
+    company_profile = models.TextField(null=True, blank=True)  # 公司简介，文本型
+        
     def __str__(self):
-        return self.stock_symbol
+        return self.company_name
 
-class Prices(models.Model):
+class Price(models.Model):
     record_id = models.AutoField(primary_key=True)  # 记录ID，自增主键
-    stock_symbol = models.ForeignKey(Stocks, on_delete=models.CASCADE)  # 外键链接到Stocks表
+    stock = models.ForeignKey(Stock, on_delete=models.CASCADE)  # 外键链接到Stock表
     timestamp = models.DateTimeField()  # 时间戳，日期时间型
-    open_price = models.DecimalField(max_digits=10, decimal_places=2)  # 开盘价，十进制数，最大位数为10，小数位数为2
-    high_price = models.DecimalField(max_digits=10, decimal_places=2)  # 最高价，十进制数，最大位数为10，小数位数为2
-    low_price = models.DecimalField(max_digits=10, decimal_places=2)  # 最低价，十进制数，最大位数为10，小数位数为2
-    close_price = models.DecimalField(max_digits=10, decimal_places=2)  # 收盘价，十进制数，最大位数为10，小数位数为2
-    volume = models.PositiveIntegerField()  # 成交量，正整数
-    adjusted_close = models.DecimalField(max_digits=10, decimal_places=2)  # 调整后的收盘价，十进制数，最大位数为10，小数位数为2
+    open_price = models.DecimalField(max_digits=10, decimal_places=2)  # 开盘价，十进制型，最大位数为10，小数位数为2
+    high_price = models.DecimalField(max_digits=10, decimal_places=2)  # 最高价，十进制型，最大位数为10，小数位数为2
+    low_price = models.DecimalField(max_digits=10, decimal_places=2)  # 最低价，十进制型，最大位数为10，小数位数为2
+    close_price = models.DecimalField(max_digits=10, decimal_places=2)  # 收盘价，十进制型，最大位数为10，小数位数为2
+    volume = models.IntegerField()  # 成交量，整数型
+    adjusted_close = models.DecimalField(max_digits=10, decimal_places=2)  # 调整后的收盘价，十进制型，最大位数为10，小数位数为2
 
-class TechnicalIndicators(models.Model):
+class TechnicalIndicator(models.Model):
     record_id = models.AutoField(primary_key=True)  # 记录ID，自增主键
-    stock_symbol = models.ForeignKey(Stocks, on_delete=models.CASCADE)  # 外键链接到Stocks表
+    stock = models.ForeignKey(Stock, on_delete=models.CASCADE)  # 外键链接到Stock表
     timestamp = models.DateTimeField()  # 时间戳，日期时间型
-    moving_average = models.DecimalField(max_digits=10, decimal_places=2)  # 移动平均线，十进制数，最大位数为10，小数位数为2
-    relative_strength_index = models.DecimalField(max_digits=10, decimal_places=2)  # 相对强弱指数，十进制数，最大位数为10，小数位数为2
-    stochastic_oscillator = models.DecimalField(max_digits=10, decimal_places=2)  # 随机指标，十进制数，最大位数为10，小数位数为2
+    moving_average = models.DecimalField(max_digits=10, decimal_places=2)  # 移动平均线，十进制型，最大位数为10，小数位数为2
+    relative_strength_index = models.DecimalField(max_digits=10, decimal_places=2)  # 相对强弱指数，十进制型，最大位数为10，小数位数为2
+    stochastic_oscillator = models.DecimalField(max_digits=10, decimal_places=2)  # 随机指标，十进制型，最大位数为10，小数位数为2
 
 class News(models.Model):
     record_id = models.AutoField(primary_key=True)  # 记录ID，自增主键
-    stock_symbol = models.ForeignKey(Stocks, on_delete=models.CASCADE)  # 外键链接到Stocks表
+    stock = models.ForeignKey(Stock, on_delete=models.CASCADE)  # 外键链接到Stock表
     timestamp = models.DateTimeField()  # 时间戳，日期时间型
     news_title = models.CharField(max_length=255)  # 新闻标题，字符型，最大长度为255
     news_content = models.TextField()  # 新闻内容，文本型
 
-class UserSubscriptions(models.Model):
+class UserSubscription(models.Model):
     subscription_id = models.AutoField(primary_key=True)  # 订阅ID，自增主键
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # 外键链接到User表
-    stock_symbol = models.ForeignKey(Stocks, on_delete=models.CASCADE)  # 外键链接到Stocks表
+    stock = models.ForeignKey(Stock, on_delete=models.CASCADE)  # 外键链接到Stock表
     subscription_status = models.CharField(max_length=20)  # 订阅状态，字符型，最大长度为20
     notification_preferences = models.CharField(max_length=255)  # 通知偏好设置，字符型，最大长度为255
 
-class UserPredictionRequests(models.Model):
+class UserPredictionRequest(models.Model):
     request_id = models.AutoField(primary_key=True)  # 请求ID，自增主键
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # 外键链接到User表
-    stock_symbol = models.ForeignKey(Stocks, on_delete=models.CASCADE)  # 外键链接到Stocks表
-    prediction_interval = models.CharField(max_length=1, choices=[('M', '分钟'), ('H', '小时')])  # 预测时间间隔，字符型，选项为分钟或小时
-    request_timestamp = models.DateTimeField()  # 请求时间戳，日期时间型
-    prediction_result = models.CharField(max_length=255)  # 预测结果，字符型，最大长度为255
+    stock = models.ForeignKey(Stock, on_delete=models.CASCADE)  # 外键链接到Stock表
+    prediction_interval = models.CharField(max_length=2)  # 预测时间间隔，字符型，最大长度为2
+    timestamp = models.DateTimeField()  # 时间戳，日期时间型
+    prediction_result = models.TextField()  # 预测结果，文本型
+
+class Index(models.Model):
+    index_code = models.CharField(max_length=10, primary_key=True)  # 指数代码，字符型，最大长度为10，主键
+    index_name = models.CharField(max_length=255)  # 指数名称，字符型，最大长度为255
+    market = models.CharField(max_length=20)  # 市场，字符型，最大长度为20
+    index_information = models.TextField(null=True, blank=True)  # 指数信息，文本型
+
+class UserIndexSubscription(models.Model):
+    subscription_id = models.AutoField(primary_key=True)  # 订阅ID，自增主键
+    user = models.ForeignKey(User, on_delete=models.CASCADE)  # 外键链接到User表
+    index = models.ForeignKey(Index, on_delete=models.CASCADE)  # 外键链接到Index表
+    subscription_status = models.CharField(max_length=20)  # 订阅状态，字符型，最大长度为20
+    notification_preferences = models.CharField(max_length=255)  # 通知偏好设置，字符型，最大长度为255

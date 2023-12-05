@@ -3,7 +3,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
-# 自定义用户管理器
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, username, password=None, **extra_fields):
         """
@@ -44,7 +43,6 @@ class CustomUserManager(BaseUserManager):
 
         return self.create_user(email, username, password, **extra_fields)
 
-# 用户模型
 class User(AbstractBaseUser):
     USER_TYPES = (
         ('ordinary', '普通用户'),
@@ -61,9 +59,7 @@ class User(AbstractBaseUser):
     reset_token = models.CharField(max_length=100, blank=True, null=True)  # 重置令牌，字符型，最大长度为100，可选
     token_expiration_time = models.DateTimeField(blank=True, null=True)  # 令牌过期时间，日期时间型，可选
 
-    # 用户活动状态
     is_active = models.BooleanField(default=True)  # 用户活动状态，默认为活动
-    # 用户是否是管理员
     is_staff = models.BooleanField(default=False)  # 用户是否是管理员，默认为非管理员
 
     objects = CustomUserManager()
@@ -74,12 +70,10 @@ class User(AbstractBaseUser):
     def __str__(self):
         return self.username
 
-# 用户个人资料模型
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)  # 外键链接到User表
     notification_preferences = models.CharField(max_length=255)  # 通知偏好设置，字符型，最大长度为255
 
-# 订阅和通知模型
 class SubscriptionNotification(models.Model):
     subscription_id = models.AutoField(primary_key=True)  # 订阅ID，自增主键
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # 外键链接到User表
@@ -87,7 +81,6 @@ class SubscriptionNotification(models.Model):
     subscription_status = models.CharField(max_length=20)  # 订阅状态，字符型，最大长度为20
     notification_preferences = models.CharField(max_length=255)  # 通知偏好设置，字符型，最大长度为255
 
-# 密码重置请求模型
 class PasswordResetRequest(models.Model):
     request_id = models.AutoField(primary_key=True)  # 请求ID，自增主键
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # 外键链接到User表
