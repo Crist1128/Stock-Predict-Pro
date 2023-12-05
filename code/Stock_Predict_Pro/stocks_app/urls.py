@@ -1,7 +1,7 @@
 # stocks_app/urls.py
 
 from django.urls import path
-from .views import HotStocksView, SearchView, TodaysNewsView, RegisterUserView, LoginUserView, MarketsView,StockInfoAPIView
+from .views import HotStocksView, SearchView, TodaysNewsView, RegisterUserView, LoginUserView, MarketsView,StockInfoAPIView,StockPriceChartAPIView
 
 urlpatterns = [
     #首页的url
@@ -14,6 +14,6 @@ urlpatterns = [
     
     #股票页的url
     path('stock/<str:symbol>/', StockInfoAPIView.as_view(), name='stock-info'),
-
+    path('stock/<str:symbol>/price_chart/', StockPriceChartAPIView.as_view(), name='stock-price-chart'),
 
 ]
