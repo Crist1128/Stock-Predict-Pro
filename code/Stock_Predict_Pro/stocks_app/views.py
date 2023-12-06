@@ -14,6 +14,7 @@ from datetime import datetime, timedelta
 首页url及其view函数编写
 '''
 
+
 class HotStocksView(APIView):
     def get(self, request):
         # 使用 akshare 获取热门股票数据
@@ -39,6 +40,7 @@ class SearchView(APIView):
     '''
     - 可以模糊搜索，但是返回结果比较多，前端注意进行分割
     '''
+
     def get(self, request):
         query = request.GET.get('query', '')
 
@@ -61,11 +63,13 @@ class SearchView(APIView):
 
         return Response(search_results)
 
+
 class TodaysNewsView(APIView):
     def get(self, request):
         # 实现获取今日财经新闻的逻辑
         # ...
         pass
+
 
 class RegisterUserView(APIView):
     def post(self, request):
@@ -73,11 +77,13 @@ class RegisterUserView(APIView):
         # ...
         pass
 
+
 class LoginUserView(APIView):
     def post(self, request):
         # 实现用户登录逻辑
         # ...
         pass
+
 
 class MarketsView(APIView):
     def get(self, request):
@@ -89,6 +95,7 @@ class MarketsView(APIView):
 '''
 股票页url及view函数编写
 '''
+
 
 class StockInfoAPIView(APIView):
     def get(self, request, symbol):
@@ -132,7 +139,6 @@ class StockInfoAPIView(APIView):
 
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
 
 
 class StockPriceChartAPIView(APIView):
@@ -193,7 +199,8 @@ class StockPriceChartAPIView(APIView):
             raise ValueError("Invalid time_range value. Supported values: '1D', '5D'")
 
         # 获取股票数据
-        stock_data = ak.stock_zh_a_hist_min_em(symbol=symbol, start_date=start_date, end_date=end_date, period=period, adjust='')
+        stock_data = ak.stock_zh_a_hist_min_em(symbol=symbol, start_date=start_date, end_date=end_date, period=period,
+                                               adjust='')
 
         # 提取时间、收盘价和交易量
         time_close_volume_df = stock_data[['时间', '收盘', '成交量']]
@@ -206,14 +213,15 @@ class StockPriceChartAPIView(APIView):
             period = 'daily'
         else:
             raise ValueError("Invalid time_range value. Supported values: '1M', '6M', '1Y'")
-        
+
         start_date_str = start_date.replace('-', '').split()[0]
         end_date_str = end_date.replace('-', '').split()[0]
 
         # 获取股票数据
         if adjust == 'none':
             adjust = ''
-        stock_data = ak.stock_zh_a_hist(symbol=symbol, period=period, start_date=start_date_str, end_date=end_date_str, adjust=adjust)
+        stock_data = ak.stock_zh_a_hist(symbol=symbol, period=period, start_date=start_date_str, end_date=end_date_str,
+                                        adjust=adjust)
         # 提取时间、收盘价和交易量
         time_close_volume_df = stock_data[['日期', '收盘', '成交量']].rename(columns={'日期': '时间'})
 
@@ -240,4 +248,3 @@ class StockPriceChartAPIView(APIView):
         }
 
         return formatted_data
-

@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-#7tb6kek7t!a$8sc$d^2)o62$f1glyt@=qj2#s13)njnxvia0o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     "admin_app.apps.AdminAppConfig",
     "stocks_app.apps.StocksAppConfig",
     "rest_framework",
-    
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -52,6 +52,12 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'corsheaders.middleware.CorsMiddleware'
+]
+
+# 允许前端跨域访问
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8080",
 ]
 
 ROOT_URLCONF = "Stock_Predict_Pro.urls"
@@ -88,9 +94,9 @@ WSGI_APPLICATION = "Stock_Predict_Pro.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'stock_predict_pro_database',  # 数据库名字
+        'NAME': 'stock_predict_pro',  # 数据库名字
         'USER': 'root',
-        'PASSWORD': '20021219',
+        'PASSWORD': '123456',
         'HOST': '127.0.0.1',  # 那台机器安装了MySQL
         'PORT': 3306,
     }

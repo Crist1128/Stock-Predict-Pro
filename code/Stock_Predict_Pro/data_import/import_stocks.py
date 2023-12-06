@@ -53,7 +53,7 @@ db_connection = pymysql.connect(
 )
 
 # 读取xlsx文件
-file_path = 'E:\AA_code\Software_engineering_project\code\Stock_Predict_Pro\data_import\ChinaStockIndexSpotData.xlsx'
+file_path = 'D:\dev_yjx\Stock-Predict-Pro\code\Stock_Predict_Pro\data_import\ChinaStockIndexSpotData.xlsx'
 df = pd.read_excel(file_path)
 
 # 遍历DataFrame并插入数据到数据库
