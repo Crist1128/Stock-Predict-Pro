@@ -108,12 +108,17 @@ body {
     transform: translateX(-50%);
 }
 
-ul li {
+.table_main,
+.table_header {
     position: relative;
     list-style-type: none;
-    height: 45px;
-    margin-top: 10px;
+    height: 49px;
+    /* margin-top: 4px; */
     border-top: 1px solid rgb(196, 183, 183);
+}
+
+.table_header {
+    border: none;
 }
 
 li span {
@@ -133,13 +138,13 @@ li span {
     line-height: 30px;
     width: 100px;
     height: 30px;
-    top: 4px;
+    top: 10px;
 }
 
 .stock_symbol {
     left: 6px;
     color: rgb(242, 246, 251);
-    background-color: rgb(121, 255, 103);
+    background-color: rgb(89, 238, 243);
 }
 
 .change_percentage {
@@ -161,9 +166,60 @@ li span {
     left: 110px;
 }
 
+.table_header .stock_symbol {
+    left: 6px;
+    color: black;
+    background-color: transparent;
+}
+
+.table_header .change_percentage {
+    right: 6px;
+    color: black;
+    background-color: transparent;
+}
+
+.table_header .latest_close_price {
+    left: 250px;
+    color: black;
+}
+
+.table_header .company_name {
+    left: 110px;
+}
+
+.table_header .change_amount {
+    right: 160px;
+    color: black;
+}
+
+.show_more {
+    position: absolute;
+    width: 800px;
+    height: 40px;
+    font-size: 16px;
+    font-weight: 700;
+    color: rgb(116, 111, 111);
+    border-radius: 6px;
+    background-color: rgb(211, 254, 255);
+    border: none;
+}
+
 .change_amount .guidance_table button:hover,
 .search_button:hover,
 .button_login:hover,
 .button_register:hover {
     background-color: rgb(0, 203, 214);
+}
+
+ul .table_main:hover {
+    background-color: rgb(247, 247, 247);
+}
+
+.negative_change {
+    background-color: rgb(197, 255, 201);
+    /* 设置负值时的背景颜色 */
+}
+
+.font_color_change {
+    color: rgb(60, 255, 73);
 }

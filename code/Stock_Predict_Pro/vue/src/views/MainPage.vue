@@ -10,22 +10,30 @@
     </div>
     <!-- 搜索栏 -->
     <div class="search_table">
-      <input id="id_search" v-model="searchQuery" placeholder="Search..." />
-      <button class="search_button" type="submit">搜索</button>
+      <input id="id_search" v-model="searchQuery" placeholder="   请输入您想搜索的内容（股票代码）" />
+      <!-- <button class="search_button" type="submit">搜索</button> -->
     </div>
     <div class="hot_stocks">
       <!-- 兴趣列表 -->
       <p>您可能感兴趣的股票：</p>
         <ul>
+          <li class="table_header">
+            <span class="stock_symbol">股票代码</span>
+            <span class="company_name">公司名称</span>
+            <span class="latest_close_price">最新收盘价</span>
+            <span class="change_amount">涨跌额</span>
+            <span class="change_percentage">涨跌幅</span>
+          </li>
           <!-- 循环打印股票公司和相关数据 -->
-            <li v-for="stock in hotStocks" :key="stock.stock_symbol">
-              <span class="stock_symbol">{{ stock.stock_symbol }}</span>
-              <span class="company_name">{{ stock.company_name }}</span>
-              <span class="latest_close_price">{{ stock.latest_close_price }}</span>
-              <span class="change_amount"> {{ stock.change_amount }}%</span>
-              <span class="change_percentage">{{ stock.change_percentage }}%</span>
-            </li>  
+          <li class="table_main" v-for="stock in visibleStocks" :key="stock.stock_symbol">
+            <span class="stock_symbol">{{ stock.stock_symbol }}</span>
+            <span class="company_name">{{ stock.company_name }}</span>
+            <span class="latest_close_price">{{ stock.latest_close_price.toFixed(2)  }}</span>
+            <span :class="{'font_color_change':stock.change_amount < 0}" class="change_amount"> {{ stock.change_amount.toFixed(2)  }}%</span>
+            <span :class="{ 'negative_change': stock.change_percentage < 0 }" class="change_percentage">{{ stock.change_percentage.toFixed(2)  }}%</span>
+          </li>  
        </ul>
+       <button class="show_more" @click="showMoreStocks">Loading more</button>
     </div>
     <div class="stock_news">
       <!-- 股票新闻 -->
@@ -43,32 +51,34 @@
 <script>
 import axios from 'axios';
 
+
 export default {
   data() {
     return {
       hotStocks: [],
+      displayedStocks: 5,
     };
   },
   mounted() {
     this.fetchHotStocks();
-
+  },
+  computed: {
+    visibleStocks() {
+      return this.hotStocks.slice(0, this.displayedStocks);
+    },
   },
   methods: {
     fetchHotStocks() {
-      axios.get('http://localhost:8000/api/hot_stocks/')  
+      axios.get('http://localhost:8000/api/hot_stocks/')
         .then(response => {
           this.hotStocks = response.data;
         })
         .catch(error => {
           console.error('Error fetching hot stocks:', error);
         });
-      // axios.get('http://localhost:8000/api/todays_news/')
-      //   .then(response => {
-      //     this.stockNews = response.data;
-      //   })
-      //   .catch(error => {
-      //     console.error('Error fetching stock news:', error);
-      //   });
+    },
+    showMoreStocks() {
+      this.displayedStocks += 4;
     },
   },
 };
