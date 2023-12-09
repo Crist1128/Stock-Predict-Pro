@@ -8,17 +8,20 @@ import akshare as ak
 from datetime import datetime, timedelta
 
 # 前端接口
-predict_days = 14  # 这里输入预测天数
-stock_type = "000001"
+stock_type = "000001"  # 接口2：股票代码
+# 接口3：股票名称
+fq_type = ""  # 接口4：复权类型
+predict_days = 14  # 接口5：预测天数
+
 time_line = "daily"
 end_date = datetime.now().date()
 start_date = end_date - timedelta(days=365)
 end_date = str(end_date).replace('-', '')
 start_date = str(start_date).replace('-', '')
-fq_type = ""
 
+# 接口1：股票类型
 data = ak.stock_zh_a_hist(symbol=stock_type, period=time_line, start_date=start_date, end_date=end_date, adjust=fq_type)
-# 可换成任意数据集，只要含“日期”(yyyy-mm-dd日期格式)、“收盘”即可
+# 可换成任意股数据集，只要含“日期”(yyyy-mm-dd日期格式)、“收盘”即可
 
 price = data[['收盘']]
 scaler = MinMaxScaler(feature_range=(-1, 1))
@@ -90,88 +93,9 @@ for t in range(num_epochs):
     loss.backward()
     optimiser.step()
 
-y_predict = np.empty((predict_days, 1))
+y_predict = np.empty((predict_days, 1))  # 储存预测结果
 x_predict = x_test[-1, 1 - lookback:, :].unsqueeze(0)
 for i in range(predict_days):
     y = model(x_predict)
     x_predict = torch.cat((x_predict[:, 1:, :], y.unsqueeze(0)), dim=1)
     y_predict[i, 0] = scaler.inverse_transform(y.detach().numpy())
-
-date = data[['日期']]
-future_date = pd.date_range(start=data['日期'].iloc[-1], periods=predict_days + 1, freq='D')[1:]
-future_date = pd.DataFrame({'日期': future_date})
-date_DataFrame = pd.concat([date, future_date], ignore_index=True)
-date_Series = date_DataFrame.squeeze()
-
-original = scaler.inverse_transform(price['收盘'].values.reshape(-1, 1))
-additional = np.full((predict_days, 1), np.nan)
-original = np.vstack((original, additional))
-futurePredictPlot = np.empty_like(date_DataFrame)
-futurePredictPlot[:, :] = np.nan
-futurePredictPlot[len(price):len(price) + predict_days, :] = y_predict
-
-predictions = np.append(original, futurePredictPlot, axis=1)
-result = pd.DataFrame(predictions)
-
-fig = go.Figure()
-fig.add_trace(go.Scatter(x=date_Series, y=result[0],
-                         mode='lines',
-                         name='历史收盘价',
-                         line=dict(color='gold')))
-fig.add_trace(go.Scatter(x=date_Series, y=result[1],
-                         mode='lines',
-                         name=f'未来{predict_days}天预测值',
-                         line=dict(color='cyan')))
-fig.update_layout(
-    xaxis=dict(
-        title_text='日期',
-        titlefont=dict(
-            family='Rockwell',
-            size=12,
-            color='white',
-        ),
-        showline=True,
-        showgrid=True,
-        showticklabels=True,
-        linecolor='white',
-        linewidth=2,
-        ticks='outside',
-        tickfont=dict(
-            family='Rockwell',
-            size=12,
-            color='white',
-        ),
-    ),
-    yaxis=dict(
-        title_text=f'收盘价(元)',  # 根据不同股类型改单位
-        titlefont=dict(
-            family='Rockwell',
-            size=12,
-            color='white',
-        ),
-        showline=True,
-        showgrid=True,
-        showticklabels=True,
-        linecolor='white',
-        linewidth=2,
-        ticks='outside',
-        tickfont=dict(
-            family='Rockwell',
-            size=12,
-            color='white',
-        ),
-    ),
-    showlegend=True,
-    template='plotly_dark'
-)
-
-annotations = []
-annotations.append(dict(xref='paper', yref='paper', x=0.0, y=1.05,
-                        xanchor='left', yanchor='bottom',
-                        text='股票收盘价预测',
-                        font=dict(family='Rockwell',
-                                  size=26,
-                                  color='white'),
-                        showarrow=False))
-fig.update_layout(annotations=annotations)
-fig.show()
