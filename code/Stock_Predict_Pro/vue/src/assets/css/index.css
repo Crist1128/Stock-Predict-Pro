@@ -79,25 +79,22 @@ body {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    width: 600px;
-    height: 40px;
-    border: none;
-    box-shadow: 0px 0px 30px rgb(0 0 0 / 8%);
-    border-radius: 24px;
+    border: 2px solid transparent;
+    width: 800px;
+    height: 3em;
+    padding-left: 0.8em;
+    outline: none;
+    overflow: hidden;
+    background-color: #F3F3F3;
+    border-radius: 10px;
+    transition: all 0.5s;
 }
 
-.search_button {
-    width: 70px;
-    height: 34px;
-    position: absolute;
-    right: 116px;
-    top: 5px;
-    border-radius: 6px;
-    border: none;
-    color: rgb(242, 246, 251);
-    font-weight: 800;
-    background-color: rgb(89, 238, 243);
-    transition: background-color 0.3s ease;
+#id_search:hover,
+#id_search:focus {
+    border: 2px solid #4A9DEC;
+    box-shadow: 0px 0px 0px 7px rgb(74, 157, 236, 20%);
+    background-color: white;
 }
 
 .hot_stocks {
@@ -113,7 +110,6 @@ body {
     position: relative;
     list-style-type: none;
     height: 49px;
-    /* margin-top: 4px; */
     border-top: 1px solid rgb(196, 183, 183);
 }
 
@@ -194,20 +190,38 @@ li span {
 
 .show_more {
     position: absolute;
-    width: 800px;
-    height: 40px;
-    font-size: 16px;
-    font-weight: 700;
-    color: rgb(116, 111, 111);
-    border-radius: 6px;
-    background-color: rgb(211, 254, 255);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgb(89, 238, 243);
     border: none;
+    font-weight: 600;
+    font-size: 30px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+    cursor: pointer;
+    transition-duration: .3s;
+    overflow: hidden;
+}
+
+.show_more:hover {
+    width: 100px;
+    height: 40px;
+    border-radius: 50px;
+    transition-duration: .3s;
+    align-items: center;
 }
 
 .change_amount .guidance_table button:hover,
 .search_button:hover,
 .button_login:hover,
-.button_register:hover {
+.button_register:hover,
+.market:hover,
+.market1:hover,
+.market2:hover {
     background-color: rgb(0, 203, 214);
 }
 
@@ -217,7 +231,6 @@ ul .table_main:hover {
 
 .negative_change {
     background-color: rgb(197, 255, 201);
-    /* 设置负值时的背景颜色 */
 }
 
 .font_color_change {
