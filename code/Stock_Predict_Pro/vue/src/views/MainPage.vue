@@ -10,7 +10,17 @@
     </div>
     <!-- 搜索栏 -->
     <div class="search_table">
-      <input id="id_search" v-model="searchQuery" placeholder="   请输入您想搜索的内容（股票代码）" />
+      <input id="id_search" v-model="searchQuery" @input="search" placeholder="请输入您想搜索的内容（股票代码）" />
+      <ul>
+        <li v-for="result in searchResults" :key="result.symbol">
+          <span v-if="result.result_type === 'stock'">
+            {{ result.company_name }} ({{ result.symbol }}) - Stock
+          </span>
+          <span v-else-if="result.result_type === 'index'">
+            {{ result.index_name }} ({{ result.symbol }}) - Index
+          </span>
+        </li>
+      </ul>
     </div>
     <div class="hot_stocks">
       <!-- 兴趣列表 -->
@@ -52,6 +62,8 @@ import axios from 'axios';
 export default {
   data() {
     return {
+      searchQuery: '',
+      searchResults: [],
       hotStocks: [],
       displayedStocks: 5,
     };
@@ -73,12 +85,12 @@ export default {
         .catch(error => {
           console.error('Error fetching hot stocks:', error);
         });
-      axios.get('http://localhost:8000/api/todays_news/')
+      axios.get('http://localhost:8000/api/search/?query=${this.searchQuery}')
         .then(response => {
-          this.stock_news = response.data;
+          this.searchResults = response.data;
         })
         .catch(error => {
-          console.error('Error fetching todays_news:', error);
+          console.error('Error fetching search results:', error);
         });
     },
     showMoreStocks() {
@@ -88,6 +100,4 @@ export default {
 };
 </script>
 
-<style scoped>
-@import '../assets/css/index.css';
-</style>
+<style scoped>@import '../assets/css/index.css';</style>

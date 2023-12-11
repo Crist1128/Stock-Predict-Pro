@@ -46,7 +46,8 @@ import pymysql
 db_connection = pymysql.connect(
     host='127.0.0.1',
     user='root',
-    password='20021219',
+    # 记得修改
+    password='123456',
     db='stock_predict_pro_database',
     charset='utf8mb4',
     cursorclass=pymysql.cursors.DictCursor

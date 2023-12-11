@@ -13,7 +13,7 @@ body {
     color: rgb(242, 246, 251);
     font-weight: 800;
     background-color: rgb(89, 238, 243);
-    transition: background-color 0.3s ease;
+    transition: background-color 0.5s ease;
 }
 
 .button_login {
@@ -58,7 +58,7 @@ body {
     margin-left: 10px;
     background-color: rgb(89, 238, 243);
     border-radius: 6px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.5s ease;
 }
 
 .market {
@@ -92,13 +92,13 @@ body {
 
 #id_search:hover,
 #id_search:focus {
-    border: 2px solid #4A9DEC;
+    border: 2px solid #58e4f4;
     box-shadow: 0px 0px 0px 7px rgb(74, 157, 236, 20%);
     background-color: white;
 }
 
-.hot_stocks {
-
+.hot_stocks,
+.stock_news {
     width: 800px;
     position: relative;
     left: 50%;
@@ -111,6 +111,7 @@ body {
     list-style-type: none;
     height: 49px;
     border-top: 1px solid rgb(196, 183, 183);
+    transition: transform 0.3s ease;
 }
 
 .table_header {
@@ -222,11 +223,13 @@ li span {
 .market:hover,
 .market1:hover,
 .market2:hover {
+    transform: scale(1.06);
     background-color: rgb(0, 203, 214);
 }
 
-ul .table_main:hover {
+.table_main:hover {
     background-color: rgb(247, 247, 247);
+    transform: scale(1.04);
 }
 
 .negative_change {
@@ -235,4 +238,8 @@ ul .table_main:hover {
 
 .font_color_change {
     color: rgb(60, 255, 73);
+}
+
+.stock_news {
+    margin-top: 70px;
 }
