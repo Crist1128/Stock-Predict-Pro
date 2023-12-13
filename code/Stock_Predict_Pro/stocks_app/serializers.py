@@ -13,10 +13,10 @@ class StockSerializer(serializers.ModelSerializer):
 class IndexSerializer(serializers.ModelSerializer):
     class Meta:
         model = Index
-        fields = ['index_code', 'index_name', 'market']
+        fields = ['index_code', 'index_name', 'market', 'type']
 
 
 class StockSerializer(serializers.ModelSerializer):
     class Meta:
         model = Stock
-        fields = ['stock_symbol', 'company_name', 'market', 'company_profile']
+        fields = ['stock_symbol', 'company_name', 'market', 'company_profile', 'type']

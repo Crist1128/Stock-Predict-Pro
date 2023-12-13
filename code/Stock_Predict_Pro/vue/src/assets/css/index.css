@@ -3,6 +3,25 @@ body {
     background-repeat: no-repeat;
 }
 
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: inherit;
+    background-color: #58e4f4;
+    -webkit-transition: 0.3s background-color;
+    transition: 0.3s background-color;
+}
+
+li {
+    list-style-type: none;
+}
+
 .button_register,
 .button_login {
     width: 70px;
@@ -69,7 +88,8 @@ body {
 .search_table {
     position: relative;
     left: 50%;
-    height: 100px;
+    min-height: 100px;
+    max-height: 260px;
     transform: translateX(-50%);
     width: 1000px;
     min-width: 500px;
@@ -90,6 +110,34 @@ body {
     transition: all 0.5s;
 }
 
+.search_result_select {
+    position: absolute;
+    width: 300px;
+    min-height: 0px;
+    max-height: 200px;
+    right: -215px;
+    overflow-y: auto;
+    border-radius: 8px;
+    border: none;
+    background-color: rgb(245, 251, 255);
+    box-shadow: 0px 0px 30px rgb(0 0 0 / 8%);
+}
+
+.search_link1,
+.search_link2 {
+    width: 99%;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    font-size: 10px;
+    background-color: rgb(247, 251, 255);
+}
+
+.search_link1:hover,
+.search_link2:hover {
+    background-color: rgb(230, 242, 255);
+}
+
 #id_search:hover,
 #id_search:focus {
     border: 2px solid #58e4f4;
@@ -102,13 +150,13 @@ body {
     width: 800px;
     position: relative;
     left: 50%;
+    z-index: 1;
     transform: translateX(-50%);
 }
 
 .table_main,
 .table_header {
     position: relative;
-    list-style-type: none;
     height: 49px;
     border-top: 1px solid rgb(196, 183, 183);
     transition: transform 0.3s ease;
@@ -234,6 +282,7 @@ li span {
 
 .negative_change {
     background-color: rgb(197, 255, 201);
+    color: rgb(18, 176, 18);
 }
 
 .font_color_change {

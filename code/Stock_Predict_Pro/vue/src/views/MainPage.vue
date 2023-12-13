@@ -10,15 +10,17 @@
     </div>
     <!-- 搜索栏 -->
     <div class="search_table">
-      <input id="id_search" v-model="searchQuery" @input="search" placeholder="请输入您想搜索的内容（股票代码）" />
-      <ul>
-        <li v-for="result in searchResults" :key="result.symbol">
-          <span v-if="result.result_type === 'stock'">
-            {{ result.company_name }} ({{ result.symbol }}) - Stock
-          </span>
-          <span v-else-if="result.result_type === 'index'">
-            {{ result.index_name }} ({{ result.symbol }}) - Index
-          </span>
+      <input id="id_search" v-model="searchQuery" @input="search" placeholder="请输入您想搜索的内容（股票代码或股票名）" @focus="show" />
+      <ul v-show="visible" @click="hide" class="search_result_select">
+        <li v-for="result in searchResults" :key="result.stock_symbol">
+          <div class="search_link1" v-if="result.type === 'stock'">
+            {{ result.company_name }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ result.stock_symbol
+            }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ result.market }}
+          </div>
+          <div class="search_link2" v-else-if="result.type === 'index'">
+            {{ result.index_name }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ result.index_code
+            }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ result.market }}
+          </div>
         </li>
       </ul>
     </div>
@@ -58,7 +60,6 @@
 <script>
 import axios from 'axios';
 
-
 export default {
   data() {
     return {
@@ -66,10 +67,15 @@ export default {
       searchResults: [],
       hotStocks: [],
       displayedStocks: 5,
+      visible: false,
     };
   },
   mounted() {
     this.fetchHotStocks();
+    document.addEventListener('click', this.hide);
+  },
+  beforeUnmount() {
+    document.removeEventListener('click', this.hideContainer);
   },
   computed: {
     visibleStocks() {
@@ -85,19 +91,36 @@ export default {
         .catch(error => {
           console.error('Error fetching hot stocks:', error);
         });
-      axios.get('http://localhost:8000/api/search/?query=${this.searchQuery}')
-        .then(response => {
-          this.searchResults = response.data;
-        })
-        .catch(error => {
-          console.error('Error fetching search results:', error);
-        });
+    },
+    search() {
+      if (this.searchQuery.length >= 3) {
+        axios.get(`http://localhost:8000/api/search/?query=${this.searchQuery}`)
+          .then(response => {
+            this.searchResults = response.data;
+          })
+          .catch(error => {
+            console.error('Error fetching search results:', error);
+          });
+      } else {
+        this.searchResults = [];
+      }
     },
     showMoreStocks() {
       this.displayedStocks += 4;
+    },
+    show() {
+      this.visible = true;
+    },
+    hide(event) {
+      // 如果点击的地方不是输入框，则隐藏容器
+      if (!event.target.matches('input')) {
+        this.visible = false;
+      }
     },
   },
 };
 </script>
 
-<style scoped>@import '../assets/css/index.css';</style>
+<style scoped>
+@import '../assets/css/index.css';
+</style>
