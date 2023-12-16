@@ -1,0 +1,294 @@
+body {
+    background-color: rgb(250, 252, 255);
+    background-repeat: no-repeat;
+}
+
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: inherit;
+    background-color: #58e4f4;
+    -webkit-transition: 0.3s background-color;
+    transition: 0.3s background-color;
+}
+
+li {
+    list-style-type: none;
+}
+
+.button_register,
+.button_login {
+    width: 70px;
+    height: 34px;
+    position: absolute;
+    border-radius: 6px;
+    border: none;
+    color: rgb(242, 246, 251);
+    font-weight: 800;
+    background-color: rgb(89, 238, 243);
+    transition: background-color 0.5s ease;
+}
+
+.button_login {
+    right: 120px;
+    top: 15px;
+}
+
+.button_register {
+    right: 40px;
+    top: 15px;
+}
+
+.guidance_table {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 20px;
+    margin-bottom: 40px;
+    height: 45px;
+    width: 1000px;
+    min-width: 500px;
+    border-radius: 6px;
+    background-color: white;
+    box-shadow: 0px 0px 30px rgb(0 0 0 / 8%);
+}
+
+.guidance {
+    position: absolute;
+    left: 30px;
+    top: 10px;
+    font-weight: 500;
+}
+
+.market,
+.market2,
+.market1 {
+    width: 70px;
+    height: 30px;
+    border: none;
+    color: rgb(242, 246, 251);
+    font-weight: 600;
+    margin-left: 10px;
+    background-color: rgb(89, 238, 243);
+    border-radius: 6px;
+    transition: background-color 0.5s ease;
+}
+
+.market {
+    margin-left: 125px;
+    margin-top: 8px;
+}
+
+.search_table {
+    position: relative;
+    left: 50%;
+    min-height: 100px;
+    max-height: 260px;
+    transform: translateX(-50%);
+    width: 1000px;
+    min-width: 500px;
+}
+
+#id_search {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 2px solid transparent;
+    width: 800px;
+    height: 3em;
+    padding-left: 0.8em;
+    outline: none;
+    overflow: hidden;
+    background-color: #F3F3F3;
+    border-radius: 10px;
+    transition: all 0.5s;
+}
+
+.search_result_select {
+    position: absolute;
+    width: 300px;
+    min-height: 0px;
+    max-height: 200px;
+    right: -215px;
+    overflow-y: auto;
+    border-radius: 8px;
+    border: none;
+    background-color: rgb(245, 251, 255);
+    box-shadow: 0px 0px 30px rgb(0 0 0 / 8%);
+}
+
+.search_link1,
+.search_link2 {
+    width: 99%;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    font-size: 10px;
+    background-color: rgb(247, 251, 255);
+}
+
+.search_link1:hover,
+.search_link2:hover {
+    background-color: rgb(230, 242, 255);
+}
+
+#id_search:hover,
+#id_search:focus {
+    border: 2px solid #58e4f4;
+    box-shadow: 0px 0px 0px 7px rgb(74, 157, 236, 20%);
+    background-color: white;
+}
+
+.hot_stocks,
+.stock_news {
+    width: 800px;
+    position: relative;
+    left: 50%;
+    z-index: 1;
+    transform: translateX(-50%);
+}
+
+.table_main,
+.table_header {
+    position: relative;
+    height: 49px;
+    border-top: 1px solid rgb(196, 183, 183);
+    transition: transform 0.3s ease;
+}
+
+.table_header {
+    border: none;
+}
+
+li span {
+    display: inline-block;
+    text-align: center;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.stock_symbol,
+.change_percentage,
+.change_amount,
+.latest_close_price,
+.company_name {
+    position: absolute;
+    line-height: 30px;
+    width: 100px;
+    height: 30px;
+    top: 10px;
+}
+
+.stock_symbol {
+    left: 6px;
+    color: rgb(242, 246, 251);
+    background-color: rgb(89, 238, 243);
+}
+
+.change_percentage {
+    right: 6px;
+    color: rgb(240, 83, 40);
+    background-color: rgb(255, 224, 222);
+}
+
+.change_amount {
+    right: 160px;
+    color: rgb(240, 83, 40);
+}
+
+.latest_close_price {
+    left: 250px;
+}
+
+.company_name {
+    left: 110px;
+}
+
+.table_header .stock_symbol {
+    left: 6px;
+    color: black;
+    background-color: transparent;
+}
+
+.table_header .change_percentage {
+    right: 6px;
+    color: black;
+    background-color: transparent;
+}
+
+.table_header .latest_close_price {
+    left: 250px;
+    color: black;
+}
+
+.table_header .company_name {
+    left: 110px;
+}
+
+.table_header .change_amount {
+    right: 160px;
+    color: black;
+}
+
+.show_more {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgb(89, 238, 243);
+    border: none;
+    font-weight: 600;
+    font-size: 30px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+    cursor: pointer;
+    transition-duration: .3s;
+    overflow: hidden;
+}
+
+.show_more:hover {
+    width: 100px;
+    height: 40px;
+    border-radius: 50px;
+    transition-duration: .3s;
+    align-items: center;
+}
+
+.change_amount .guidance_table button:hover,
+.search_button:hover,
+.button_login:hover,
+.button_register:hover,
+.market:hover,
+.market1:hover,
+.market2:hover {
+    transform: scale(1.06);
+    background-color: rgb(0, 203, 214);
+}
+
+.table_main:hover {
+    background-color: rgb(247, 247, 247);
+    transform: scale(1.04);
+}
+
+.negative_change {
+    background-color: rgb(197, 255, 201);
+    color: rgb(18, 176, 18);
+}
+
+.font_color_change {
+    color: rgb(60, 255, 73);
+}
+
+.stock_news {
+    margin-top: 70px;
+}
