@@ -8,6 +8,7 @@ class Stock(models.Model):
     company_name = models.CharField(max_length=255)  # 公司名称，字符型，最大长度为255
     market = models.CharField(max_length=20)  # 市场，字符型，最大长度为20
     company_profile = models.TextField(null=True, blank=True)  # 公司简介，文本型
+    type = 'stock'
         
     def __str__(self):
         return self.company_name
@@ -58,6 +59,7 @@ class Index(models.Model):
     index_name = models.CharField(max_length=255)  # 指数名称，字符型，最大长度为255
     market = models.CharField(max_length=20)  # 市场，字符型，最大长度为20
     index_information = models.TextField(null=True, blank=True)  # 指数信息，文本型
+    type = 'index'
 
 class UserIndexSubscription(models.Model):
     subscription_id = models.AutoField(primary_key=True)  # 订阅ID，自增主键

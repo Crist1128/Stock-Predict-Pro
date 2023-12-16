@@ -6,7 +6,7 @@ from .models import Stock, Index
 class StockSerializer(serializers.ModelSerializer):
     class Meta:
         model = Stock
-        fields = ['stock_symbol', 'company_name', 'market']
+        fields = ['stock_symbol', 'company_name', 'market', 'type']
 
 class IndexSerializer(serializers.ModelSerializer):
     class Meta:
@@ -16,4 +16,4 @@ class IndexSerializer(serializers.ModelSerializer):
 class StockSerializer(serializers.ModelSerializer):
     class Meta:
         model = Stock
-        fields = ['stock_symbol', 'company_name', 'market', 'company_profile']
+        fields = ['stock_symbol', 'company_name', 'market', 'company_profile', 'type']

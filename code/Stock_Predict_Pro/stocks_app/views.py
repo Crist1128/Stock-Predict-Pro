@@ -9,6 +9,7 @@ from django.db.models import Q
 from rest_framework import status
 from django.utils import timezone
 from datetime import datetime, timedelta
+from .predict_model.model1 import StockPredictor
 
 '''
 首页url及其view函数编写
@@ -93,8 +94,7 @@ class MarketsView(APIView):
 class StockInfoAPIView(APIView):
     def get(self, request, symbol):
         try:
-            # 将 symbol 转换为小写字母
-            symbol = symbol.lower()
+            symbol = symbol[2:]
 
             # 获取实时行情数据
             stock_zh_a_spot_em_df = ak.stock_zh_a_spot_em()
@@ -241,3 +241,30 @@ class StockPriceChartAPIView(APIView):
 
         return formatted_data
 
+
+
+
+class PredictDailyCloseAPIView(APIView):
+    def post(self, request, symbol):
+        try:
+            fq_type = request.data.get('fq_type', '')
+            predict_days = request.data.get('predict_days', 14)
+            
+            symbol = symbol[2:]
+            # 创建股票预测器实例
+            predictor = StockPredictor(stock_code=symbol, fq_type=fq_type, predict_days=int(predict_days))
+            
+            # 运行预测
+            result = predictor.run_prediction()
+            
+            # 封装响应格式
+            response_data = {
+                "predictions": [
+                    {"time": time, "price": price} for time, price in result.items()
+                ]
+            }
+            
+            return Response(response_data, status=status.HTTP_200_OK)
+        
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
