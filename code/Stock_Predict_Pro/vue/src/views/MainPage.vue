@@ -13,11 +13,11 @@
       <input id="id_search" v-model="searchQuery" @input="search" placeholder="请输入您想搜索的内容（股票代码或股票名）" @focus="show" />
       <ul v-show="visible" @click="hide" class="search_result_select">
         <li v-for="result in searchResults" :key="result.stock_symbol">
-          <div class="search_link1" v-if="result.type === 'stock'">
+          <div class="search_link1" v-if="result.type === 'stock'" @click="onResultClickStock(result)">
             {{ result.company_name }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ result.stock_symbol
             }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ result.market }}
           </div>
-          <div class="search_link2" v-else-if="result.type === 'index'">
+          <div class="search_link2" v-else-if="result.type === 'index'" @click="onResultClickIndex(result)">
             {{ result.index_name }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ result.index_code
             }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ result.market }}
           </div>
@@ -83,6 +83,7 @@ export default {
     },
   },
   methods: {
+    // 获取热门股票
     fetchHotStocks() {
       axios.get('http://localhost:8000/api/hot_stocks/')
         .then(response => {
@@ -92,6 +93,7 @@ export default {
           console.error('Error fetching hot stocks:', error);
         });
     },
+    // 获取搜索信息
     search() {
       if (this.searchQuery.length >= 3) {
         axios.get(`http://localhost:8000/api/search/?query=${this.searchQuery}`)
@@ -116,6 +118,14 @@ export default {
       if (!event.target.matches('input')) {
         this.visible = false;
       }
+    },
+    // 实现股票页跳转
+    onResultClickStock(result) {
+      this.$router.push({ name: 'stockpage', params: { name: result.company_name, id: result.stock_symbol, type: result.market } })
+    },
+    // 实现指数页跳转
+    onResultClickIndex(result) {
+      this.$router.push({ name: 'stockpage', params: { name: result.index_name, id: result.index_code, type: result.market } })
     },
   },
 };
