@@ -101,7 +101,7 @@ class StockInfoAPIView(APIView):
     def get(self, request, symbol):
         try:
             # 将 symbol 转换为小写字母
-            symbol = symbol.lower()
+            symbol = symbol[2:]
 
             # 获取实时行情数据
             stock_zh_a_spot_em_df = ak.stock_zh_a_spot_em()

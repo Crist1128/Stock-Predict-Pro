@@ -24,3 +24,32 @@
     background-image: url(../logo.jpg);
     background-repeat: no-repeat;
 }
+
+.button_register,
+.button_login {
+    width: 70px;
+    height: 34px;
+    position: absolute;
+    border-radius: 6px;
+    border: none;
+    color: rgb(242, 246, 251);
+    font-weight: 800;
+    background-color: rgb(89, 238, 243);
+    transition: background-color 0.5s ease;
+}
+
+.button_login {
+    right: 120px;
+    top: 15px;
+}
+
+.button_register {
+    right: 40px;
+    top: 15px;
+}
+
+.button_register:hover,
+.button_login:hover {
+    transform: scale(1.06);
+    background-color: rgb(0, 203, 214);
+}
