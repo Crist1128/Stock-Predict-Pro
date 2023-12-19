@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import MainPage from '../views/MainPage.vue'
+import StockPage from '../views/StockPage.vue'
 const routes = [
   {
     path: '/',
@@ -19,6 +20,11 @@ const routes = [
     path: '/mainpage',  // 不能和import的MainPage一样！！！！！
     name: 'mainpage',
     component: MainPage // Use the imported component for the new page
+  },
+  {
+    path: '/stockpage/:type/:id/:name',
+    name: 'stockpage',
+    component: StockPage
   }
 ]
 

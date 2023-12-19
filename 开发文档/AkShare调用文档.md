@@ -263,6 +263,67 @@ print(stock_zh_a_minute_df)
 19999  2020-10-23 15:00:00  3.52  3.52  3.52   3.52  259123
 ```
 
+### 按分钟查询使用了：
+
+```python
+import akshare as ak
+
+# 获取指定时间范围内股票代码为000001的1分钟级别分时数据
+stock_zh_a_hist_min_em_df = ak.stock_zh_a_hist_min_em(symbol="000001", start_date="2023-12-05 09:32:00", end_date="2023-12-05 15:00:00", period='1', adjust='')
+
+# 提取时间、收盘价和成交量
+time_close_volume_df = stock_zh_a_hist_min_em_df[['时间', '收盘', '成交量']]
+
+# 打印结果
+print(time_close_volume_df)
+
+```
+
+**分时数据-东财[](https://www.akshare.xyz/data/stock/stock.html#id25)**
+
+接口: stock_zh_a_hist_min_em
+
+目标地址: http://quote.eastmoney.com/concept/sh603777.html?from=classic
+
+描述: 东方财富网-行情首页-沪深京 A 股-每日分时行情; 该接口只能获取近期的分时数据，注意时间周期的设置
+
+限量: 单次返回指定股票、频率、复权调整和时间区间的分时数据, 其中 1 分钟数据只返回近 5 个交易日数据且不复权
+
+输入参数
+
+| 名称       | 类型 | 描述                                                         |
+| ---------- | ---- | ------------------------------------------------------------ |
+| symbol     | str  | symbol='sh000300'; 股票代码                                  |
+| start_date | str  | start_date="1979-09-01 09:32:00"; 日期时间; 默认返回所有数据 |
+| end_date   | str  | end_date="2222-01-01 09:32:00"; 日期时间; 默认返回所有数据   |
+| period     | str  | period='5'; choice of {'1', '5', '15', '30', '60'}; 其中 1 分钟数据返回近 5 个交易日数据且不复权 |
+| adjust     | str  | adjust=''; choice of {'', 'qfq', 'hfq'}; '': 不复权, 'qfq': 前复权, 'hfq': 后复权, 其中 1 分钟数据返回近 5 个交易日数据且不复权 |
+
+输出参数-1分钟数据
+
+| 名称   | 类型    | 描述         |
+| ------ | ------- | ------------ |
+| 时间   | object  | -            |
+| 开盘   | float64 | -            |
+| 收盘   | float64 | -            |
+| 最高   | float64 | -            |
+| 最低   | float64 | -            |
+| 成交量 | float64 | 注意单位: 手 |
+| 成交额 | float64 | -            |
+| 最新价 | float64 | -            |
+
+接口示例-1分钟数据
+
+```python
+import akshare as ak
+
+# 注意：该接口返回的数据只有最近一个交易日的有开盘价，其他日期开盘价为 0
+stock_zh_a_hist_min_em_df = ak.stock_zh_a_hist_min_em(symbol="000001", start_date="2021-09-01 09:32:00", end_date="2021-09-06 09:32:00", period='1', adjust='')
+print(stock_zh_a_hist_min_em_df)
+```
+
+****
+
 ### 1.4 按日、周、月查询目标股票数据
 
 **历史行情数据-东财**

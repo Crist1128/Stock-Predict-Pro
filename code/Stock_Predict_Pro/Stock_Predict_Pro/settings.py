@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-#7tb6kek7t!a$8sc$d^2)o62$f1glyt@=qj2#s13)njnxvia0o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "stocks_app.apps.StocksAppConfig",
     "rest_framework",
     'corsheaders',
+    
 ]
 
 MIDDLEWARE = [
@@ -52,7 +53,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    'corsheaders.middleware.CorsMiddleware'
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 # 允许前端跨域访问
@@ -96,7 +97,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'stock_predict_pro_database',  # 数据库名字
         'USER': 'root',
-        'PASSWORD': '123456',
+        'PASSWORD': '18719270278',
         'HOST': '127.0.0.1',  # 那台机器安装了MySQL
         'PORT': 3306,
     }
@@ -144,3 +145,4 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+

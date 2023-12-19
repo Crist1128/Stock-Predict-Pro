@@ -3,18 +3,15 @@
 from rest_framework import serializers
 from .models import Stock, Index
 
-
 class StockSerializer(serializers.ModelSerializer):
     class Meta:
         model = Stock
         fields = ['stock_symbol', 'company_name', 'market']
 
-
 class IndexSerializer(serializers.ModelSerializer):
     class Meta:
         model = Index
         fields = ['index_code', 'index_name', 'market', 'type']
-
 
 class StockSerializer(serializers.ModelSerializer):
     class Meta:

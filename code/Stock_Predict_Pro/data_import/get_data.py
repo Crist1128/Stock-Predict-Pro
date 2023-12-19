@@ -43,7 +43,6 @@
 from datetime import datetime, timedelta
 import akshare as ak
 
-
 def get_stock_data_daily(symbol, time_range, adjust=''):
     # 获取当前日期
     current_date = datetime.now().strftime('%Y%m%d')
@@ -59,14 +58,12 @@ def get_stock_data_daily(symbol, time_range, adjust=''):
         raise ValueError("Invalid time_range value. Supported values: '1M', '6M', '1Y'")
 
     # 获取股票数据
-    stock_data = ak.stock_zh_a_hist(symbol=symbol, period='daily', start_date=start_date, end_date=current_date,
-                                    adjust=adjust)
-
+    stock_data = ak.stock_zh_a_hist(symbol=symbol, period='daily', start_date=start_date, end_date=current_date, adjust=adjust)
+    
     # 提取时间、收盘价和交易量
     time_close_volume_df = stock_data[['日期', '收盘', '成交量']]
 
     return time_close_volume_df
-
 
 # 示例
 symbol = "600519"  # 以贵州茅台为例
@@ -83,3 +80,4 @@ print(stock_data_6M)
 
 print("\n1Y精确度数据:")
 print(stock_data_1Y)
+
