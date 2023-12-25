@@ -263,7 +263,7 @@ class PredictDailyCloseAPIView(APIView):
             # 封装响应格式
             response_data = {
                 "predictions": [
-                    {"time": time, "price": price} for time, price in result.items()
+                    {"time": time, "price": price, "volume":None} for time, price in result.items()
                 ]
             }
             
