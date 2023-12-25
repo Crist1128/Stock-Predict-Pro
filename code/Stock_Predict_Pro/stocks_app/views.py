@@ -249,7 +249,10 @@ class PredictDailyCloseAPIView(APIView):
         try:
             fq_type = request.data.get('fq_type', '')
             predict_days = request.data.get('predict_days', 14)
-            
+
+            if fq_type == "none":
+                fq_type = ""
+
             symbol = symbol[2:]
             # 创建股票预测器实例
             predictor = StockPredictor(stock_code=symbol, fq_type=fq_type, predict_days=int(predict_days))
@@ -260,7 +263,7 @@ class PredictDailyCloseAPIView(APIView):
             # 封装响应格式
             response_data = {
                 "predictions": [
-                    {"time": time, "price": price} for time, price in result.items()
+                    {"time": time, "price": price, "volume":None} for time, price in result.items()
                 ]
             }
             
