@@ -153,7 +153,7 @@ export default {
   methods: {
     // 搜索结果接口
     search() {
-      if (this.searchQuery.length >= 3) {
+      if (this.searchQuery.length >= 2) {
         axios.get(`http://localhost:8000/api/search/?query=${this.searchQuery}`)
             .then(response => {
               this.searchResults = response.data;
