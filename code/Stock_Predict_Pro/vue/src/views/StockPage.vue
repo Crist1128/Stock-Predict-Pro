@@ -118,7 +118,7 @@ export default {
       stock_information_replace: [],
 
       selectedTimeRange: '1D', // 默认选中1天
-      stockCode: 'sz000001', // 默认股票代码
+      stockCode: this.$route.params.id, // 默认股票代码
       stockAdjust: 'none',  // 默认不复权
       predictDay: 1, // 默认预测1天
 

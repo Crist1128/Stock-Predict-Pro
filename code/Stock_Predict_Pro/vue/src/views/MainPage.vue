@@ -36,7 +36,7 @@
           <span class="change_percentage">涨跌幅</span>
         </li>
         <!-- 循环打印股票公司和相关数据 -->
-        <li class="table_main" v-for="stock in visibleStocks" :key="stock.stock_symbol">
+        <li class="table_main" v-for="(stock, index) in visibleStocks" :key="stock.stock_symbol" @click="goHotStock(index)">
           <span class="stock_symbol">{{ stock.stock_symbol }}</span>
           <span class="company_name">{{ stock.company_name }}</span>
           <span class="latest_close_price">{{ stock.latest_close_price.toFixed(2) }}</span>
@@ -68,6 +68,7 @@ export default {
       hotStocks: [],
       displayedStocks: 5,
       visible: false,
+      i: 0,
     };
   },
   mounted() {
@@ -127,6 +128,10 @@ export default {
     onResultClickIndex(result) {
       this.$router.push({ name: 'stockpage', params: { name: result.index_name, id: result.index_code, type: result.market } })
     },
+    // 热门股票跳转
+    goHotStock(index){
+      this.$router.push({ name: 'stockpage', params: { name: this.hotStocks[index].company_name, id: this.hotStocks[index].stock_symbol.toLowerCase(), type : "A股"} })
+    }
   },
 };
 </script>
