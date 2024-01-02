@@ -43,7 +43,7 @@
     <div>
       <!-- 股票信息显示区域 -->
       <div class="stockInfo">
-        <p style="font-weight: bolder">开盘价：{{ stock_information.start_price }} 结束价：{{
+        <p style="font-weight: bolder">开盘价：￥{{ stock_information.start_price }} 结束价：￥{{
             stock_information.end_price
           }}</p>
         <p :style="{ color: stock_information.percentage_change > 0 ? '#ce3b3b' : '#23c023'}"
@@ -87,11 +87,11 @@
     <!-- 市场信息 -->
     <div>
       <ul>
-        <li><span>昨日收盘价</span><span class="right">{{ stock_information.previous_close }}</span></li>
+        <li><span>昨日收盘价</span><span class="right">￥{{ stock_information.previous_close }}</span></li>
         <li v-if="stock_information.price_range"><span>当日价格范围</span><span
-            class="right">{{ stock_information.price_range.low }}-{{ stock_information.price_range.high }}</span></li>
-        <li><span>年度波幅</span><span class="right">{{ stock_information.year_to_date_return }}</span></li>
-        <li><span>市值</span><span class="right">{{ stock_information.market_cap }}</span></li>
+            class="right">￥{{ stock_information.price_range.low }}-￥{{ stock_information.price_range.high }}</span></li>
+        <li><span>年度波幅</span><span class="right">{{ stock_information.year_to_date_return }}%</span></li>
+        <li><span>市值</span><span class="right">￥{{ stock_information.market_cap }}</span></li>
         <li><span>平均交易量</span><span class="right">{{ stock_information.average_volume }}</span></li>
       </ul>
     </div>
